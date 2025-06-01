@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: head"></head>
+<body>
+<div th:replace="fragments/navbar :: *"></div>
+
+<div class="container">
+    <h2>Agenda de Atendimentos</h2>
+    <a class="btn btn-primary mb-3" th:href="@{/agendas/nova}">Novo Agendamento</a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Médico</th>
+            <th>Paciente</th>
+            <th>Data e Hora</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="agenda : ${agendas}">
+            <td th:text="${agenda.medico.nome}"></td>
+            <td th:text="${agenda.paciente.nome}"></td>
+            <td th:text="${#temporals.format(agenda.dataHora, 'dd/MM/yyyy HH:mm')}"></td>
+            <td>
+                <a class="btn btn-warning btn-sm" th:href="@{/agendas/editar/{id}(id=${agenda.id})}">Editar</a>
+                <a class="btn btn-danger btn-sm" th:href="@{/agendas/excluir/{id}(id=${agenda.id})}">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="fragments/footer :: *"></div>
+</body>
+</html>
